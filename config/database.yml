@@ -1,0 +1,18 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+
+development:
+  <<: *default
+  database: vkontakte_alike_development
+
+test:
+  <<: *default
+  database: vkontakte_alike_test
+
+production:
+  <<: *default
+  database: vkontakte_alike_production
+  username: vkontakte_alike
+  password: <%= ENV['VKONTAKTE_ALIKE_DATABASE_PASSWORD'] %>
