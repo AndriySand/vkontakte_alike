@@ -1,5 +1,4 @@
-<%= form_for @article, :html => { :class => "form-horizontal article" } do |f| %>
-
+<%= form_for @article, html: { class: "form-horizontal article" } do |f| %>
   <% if @article.errors.any? %>
     <div id="error_expl" class="panel panel-danger">
       <div class="panel-heading">
@@ -16,25 +15,24 @@
   <% end %>
 
   <div class="form-group">
-    <%= f.label :title, :class => 'control-label col-lg-2' %>
+    <%= f.label :title, class: 'control-label col-lg-2' %>
     <div class="col-lg-10">
-      <%= f.text_field :title, :class => 'form-control' %>
+      <%= f.text_field :title, class: 'form-control' %>
     </div>
     <%=f.error_span(:title) %>
   </div>
   <div class="form-group">
-    <%= f.label :content, :class => 'control-label col-lg-2' %>
+    <%= f.label :content, class: 'control-label col-lg-2' %>
     <div class="col-lg-10">
-      <%= f.text_field :content, :class => 'form-control' %>
+      <%= f.text_field :content, class: 'form-control' %>
     </div>
     <%=f.error_span(:content) %>
   </div>
 
   <div class="form-group">
     <div class="col-lg-offset-2 col-lg-10">
-      <%= f.submit nil, :class => 'btn btn-primary' %>
-      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                articles_path, :class => 'btn btn-default' %>
+      <%= f.submit nil, class: 'btn btn-primary' %>
+      <%= link_to 'Cancel', articles_path, class: 'btn btn-default' %>
     </div>
   </div>
 
