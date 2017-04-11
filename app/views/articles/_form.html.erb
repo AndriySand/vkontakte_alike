@@ -31,7 +31,7 @@
 
   <div class="form-group">
     <div class="col-lg-offset-2 col-lg-10">
-      <%= f.submit nil, class: 'btn btn-primary' %>
+      <%= f.submit nil, class: 'btn btn-primary', onclick: "return validateArticle()" %>
       <%= link_to 'Cancel', articles_path, class: 'btn btn-default' %>
     </div>
   </div>
