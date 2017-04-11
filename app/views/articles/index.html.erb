@@ -7,6 +7,7 @@
       <th>Title</th>
       <th>Content</th>
       <th>Author</th>
+      <th>Photo</th>
       <th>Actions</th>
     </tr>
   </thead>
@@ -16,6 +17,7 @@
         <td><%= link_to article.title, article_path(article) %></td>
         <td><%= article.content %></td>
         <td><%= article.author.name %></td>
+        <td><%= image_tag article.photo.url(:thumb) %></td>
         <% if can? :update, article %>
           <td>
             <%= link_to 'Edit', edit_article_path(article), class: 'btn btn-default btn-xs' %>

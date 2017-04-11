@@ -9,6 +9,8 @@
   <dd><%= @article.content %></dd>
   <dt><strong>Author:</strong></dt>
   <dd><%= @article.author.name %></dd>
+  <dt><strong>Photo:</strong></dt>
+  <dd><%= image_tag @article.photo.url(:thumb) %></dd>
 </dl>
 
 <%= link_to 'Back', articles_path, class: 'btn btn-default' %>
