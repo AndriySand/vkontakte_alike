@@ -1,0 +1,23 @@
+<tr id="tr-comment-<%= comment.id %>">
+  <td class='comment-content' id="comment-<%= comment.id %>"><%= comment.content %></td>
+  <td style="display:none">
+    <%= form_for [@article, comment], html: { id: "fcomment-#{comment.id}", class: "fcomment", remote: true } do |f| %>
+      <%= f.text_field :content, value: comment.content, size: 30, class: 'form-control form-content' %>
+      <%= f.hidden_field :author_id %>
+      <%= f.hidden_field :article_id, value: @article.id %>
+      <p style="display:none"> <%= f.submit 'Update', class: 'btn btn-primary' %> </p>
+    <% end %>
+  </td>
+  <td class='name'><%= comment.author.name %></td>
+  <td>
+    <% if can? :update, comment %>
+      <%= link_to 'Edit', '#', class: 'btn btn-default btn-xs edit-comment' %>
+      <%= link_to 'Destroy', article_comment_path(@article, comment), method: :delete, remote: true,
+                      data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger delete-comment' %>
+    <% end %>
+  </td>
+  <td style="display:none">
+    <%= link_to 'Update', '#', class: 'btn btn-danger update-comment' %>
+    <%= link_to 'Cancel', '#', class: 'btn btn-xs btn-default cancel-update' %>
+  </td>
+</tr>
