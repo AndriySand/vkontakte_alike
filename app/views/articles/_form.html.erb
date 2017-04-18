@@ -1,4 +1,4 @@
-<%= form_for @article, html: { class: "form-horizontal article" } do |f| %>
+<%= form_for @article, html: { class: "form-horizontal article" }, validate: true do |f| %>
   <% if @article.errors.any? %>
     <div id="error_expl" class="panel panel-danger">
       <div class="panel-heading">
@@ -37,7 +37,7 @@
 
   <div class="form-group">
     <div class="col-lg-offset-2 col-lg-10">
-      <%= f.submit nil, class: 'btn btn-primary', onclick: "return validateArticle()" %>
+      <%= f.submit nil, class: 'btn btn-primary' %>
       <%= link_to 'Cancel', articles_path, class: 'btn btn-default' %>
     </div>
   </div>

@@ -38,7 +38,7 @@
 </table>
 </div>
 
-<%= form_for [@article, @comment], html: { class: "form-horizontal fcomment", id: "create-comment", remote: true } do |f| %>
+<%= form_for [@article, @comment], html: { class: "form-horizontal fcomment", id: "create-comment", remote: true }, validate: true do |f| %>
 
   <div class="form-group">
     <%= f.label :comment, class: 'control-label col-lg-2' %>

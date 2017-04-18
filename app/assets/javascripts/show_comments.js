@@ -2,17 +2,21 @@ $(function(){
   toggle_comments_view();
   $('.table-comments').on('click', '.edit-comment, .update-comment, .cancel-update', function(){
     first_td = find_td(this, 'td:first-child');
-    first_td.toggle();
-    first_td.next().toggle();
-    last_td = find_td(this, 'td:last-child');
-    last_td.toggle();
-    last_td.prev().toggle();
+    if($(this).hasClass('update-comment') && first_td.next().find('.message').text().length > 0){
+      return false;
+    } else {
+      first_td.toggle();
+      first_td.next().toggle();
+      last_td = find_td(this, 'td:last-child');
+      last_td.toggle();
+      last_td.prev().toggle();
+    }
+    if($(this).hasClass('edit-comment')){
+      $('.fcomment').enableClientSideValidations();
+    }
     if($(this).hasClass('update-comment')){
       form_td_id = '#' + find_td(this, '.fcomment').prop('id');
       value_td_id = '#' + find_td(this, '.comment-content').prop('id');
-      if(validateForm(form_td_id + ' .form-content', 4, 'The length of comment must be at least 4 characters long') == false){
-        return false;
-      }
       $.ajax({
         url: $(form_td_id).attr('action'),
         type: "PATCH",
@@ -27,9 +31,6 @@ $(function(){
   });
   $('#create-comment').on('submit', function(){
     selector = '#create-comment .form-content';
-    if(validateForm(selector, 4, 'The length of comment must be at least 4 characters long') == false){
-      return false;
-    }
     $(document).ajaxSuccess(function(){
       $(selector).prop('value', '');
       toggle_comments_view();

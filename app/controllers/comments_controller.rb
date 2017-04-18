@@ -9,12 +9,9 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.save
-        @article = @comment.article
+        find_article
         format.html { redirect_to @article }
         format.js
-      else
-        format.html { redirect_to @comment.article }
-        format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
     end
   end
