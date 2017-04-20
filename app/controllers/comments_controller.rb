@@ -1,15 +1,14 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:update, :destroy]
-  before_action :find_article, only: [:update, :destroy]
+  before_action :find_article
 
   # POST /comments
   # POST /comments.json
   def create
-    @comment = Comment.new(comment_params)
+    @comment = @article.comments.new(comment_params)
 
     respond_to do |format|
       if @comment.save
-        find_article
         format.html { redirect_to @article }
         format.js
       end
@@ -45,11 +44,11 @@ class CommentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def comment_params
-      params.require(:comment).permit(:content, :author_id, :article_id)
+      params.require(:comment).permit(:content, :author_id)
     end
 
     def find_article
-      @article = @comment.article
+      @article = Article.find(params[:article_id])
     end
 
 end

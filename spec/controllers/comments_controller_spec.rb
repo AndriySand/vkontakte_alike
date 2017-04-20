@@ -9,7 +9,7 @@ RSpec.describe CommentsController, type: :controller do
     @comment = FactoryGirl.create(:comment)
   end
 
-  let(:valid_attributes) { { content: "some text here", author_id: @user.id, article_id: @article.id } }
+  let(:valid_attributes) { { content: "some text here", author_id: @user.id } }
 
   describe "PUT #update" do
     context "with valid params" do
@@ -21,7 +21,6 @@ RSpec.describe CommentsController, type: :controller do
       it "updates the requested comment" do
         expect(@comment.content).to eq(valid_attributes[:content])
         expect(@comment.author_id).to eq(valid_attributes[:author_id])
-        expect(@comment.article_id).to eq(valid_attributes[:article_id])
       end
 
       it "respond with status 200" do

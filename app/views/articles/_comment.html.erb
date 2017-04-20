@@ -4,7 +4,6 @@
     <%= form_for [@article, comment], html: { id: "fcomment-#{comment.id}", class: "fcomment", remote: true }, validate: true do |f| %>
       <%= f.text_field :content, size: 30, class: 'form-control form-content' %>
       <%= f.hidden_field :author_id %>
-      <%= f.hidden_field :article_id, value: @article.id %>
       <p style="display:none"> <%= f.submit 'Update', class: 'btn btn-primary' %> </p>
     <% end %>
   </td>
