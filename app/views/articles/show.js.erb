@@ -1,0 +1,7 @@
+$('.table-comments tbody').append("<%= j(render partial: 'articles/comment', collection: @article_comments, as: :comment) %>");
+<% if @article_comments.next_page %>
+  $('.pagination').replaceWith('<%= j will_paginate @article_comments %>');
+<% else %>
+  $(window).off('scroll');
+  $('.pagination').remove();
+<% end %>

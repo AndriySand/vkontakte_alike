@@ -39,6 +39,19 @@ $(function(){
   $('.delete-comment').on('click', function(){
     toggle_comments_view();
   });
+  if ($('#infinite-scrolling').size() > 0){
+    $('.comment-rows').on('scroll', function(){
+      more_comments_url = $('.pagination .next_page a').attr('href');
+      if (more_comments_url && $('.comment-rows').scrollTop() > $('.table-comments tbody').height() - 170){
+        $('.pagination').html('<img src="/assets/spinner.gif" alt="Loading..." title="Loading..." />');
+        $.ajax({
+          url: more_comments_url,
+          type: "GET",
+          dataType: 'script'
+        });
+      }
+    });
+  };
 });
 
 function find_td(start_el, expr){
