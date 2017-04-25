@@ -1,0 +1,10 @@
+<div class="row">
+  <% if attachment.attachable_type == 'File' %>
+    <div class="col-lg-6 col-md-6 attached-content"><%= image_tag attachment.asset.url(:thumb) %></div>
+  <% elsif attachment.attachable_type == 'Comment' %>
+    <div class="col-lg-6 col-md-6 attached-content"><%= Comment.find(attachment.attachable_id).content %></div>
+  <% elsif attachment.attachable_type == 'Article' %>
+    <div class="col-lg-6 col-md-6 attached-content"><%= Article.find(attachment.attachable_id).content %></div>
+  <% end %>
+  <div class="col-lg-6 col-md-6 attached-type"><%= attachment.attachable_type %></div>
+</div>

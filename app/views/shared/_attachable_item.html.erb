@@ -1,0 +1,4 @@
+<tr>
+  <td class="send-comment"><%=h link_to truncate(item.content, length: 10), article_attachments_path(@article, attachment: {attachable_id: item.id, attachable_type: item.class, author_id: current_user.id}), remote: true, method: :post %></td>
+  <td><%= item.author.name %></td>
+</tr>

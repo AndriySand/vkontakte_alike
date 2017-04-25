@@ -1,0 +1,7 @@
+$("<%= appendable_body %>").append("<%= j(render partial: partial, collection: collection, as: item) %>");
+<% if collection.next_page %>
+  $("<%= scrollable_div %>").replaceWith('<%= j will_paginate collection, param_name: param_name %>');
+<% else %>
+  $(window).off('scroll');
+  $("<%= scrollable_div %>").remove();
+<% end %>

@@ -1,0 +1,23 @@
+<div id="articles_attachment">
+  <div class="window_title">
+    <div class="title_control">X</div>
+    <div class="title_text">Attach article from here.</div>
+  </div>
+  <div class="window-body-articles">
+    <div>List of articles you can attach to this article.</div>
+    <table class="table attachable-articles">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Content</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render partial: 'shared/attachable_item', collection: @attachable_articles, as: :item %>
+      </tbody>
+    </table>
+    <div id="attachable-articles-pagination">
+      <%= will_paginate @attachable_articles, param_name: 'page_attach_art' %>
+    </div>
+  </div>
+</div>

@@ -18,8 +18,17 @@
 <% end %>
 <%= link_to 'Back', articles_path, class: 'btn btn-default' %>
 
+<% if can? :create, @comment %>
+  <%= render partial: 'attachments/comments_attachment' %>
+  <%= render partial: 'attachments/articles_attachment' %>
+<% end %>
+
 <div class='no-comments'>
-  <h3>This article don't have any comments. You can write comment.</h3>
+  <% if can? :create, @comment %>
+    <h3>This article don't have any comments. You can write comment.</h3>
+  <% else %>
+    <h3>This article don't have any comments. You can login and then create one.</h3>
+  <% end %>
 </div>
 
 <div class='comments' style='display:none'>
@@ -43,6 +52,7 @@
   </div>
 </div>
 
+<% if can? :create, @comment %>
 <div class='comment-form'>
 <%= form_for [@article, @comment], html: { class: "form-horizontal fcomment", id: "create-comment", remote: true }, validate: true do |f| %>
 
@@ -62,3 +72,34 @@
 </div>
 
 <% end %>
+</div>
+<% end %>
+
+<div class='attachments'>
+  <% if can? :create, @comment %>
+    <%= render 'attachments/attachment_links' %>
+  <% end %>
+  <h1>Attachments</h1>
+  <div class='all-attachments'>
+    <div class="row attach-header">
+      <div class="col-lg-6 col-md-6"><h4>Content</h4></div>
+      <div class="col-lg-6 col-md-6"><h4>Attachment info</h4></div>
+    </div>
+    <div class="row attached-body">
+      <%= render partial: 'attachments/attachment', collection: @attachments %>
+    </div>
+  </div>
+  <div class="attachment-upload">
+    <%= form_for [@article, @attachment] do |f| %>
+      <div class="form-group">
+        <%= f.file_field :asset %>
+      </div>
+      <%= f.hidden_field :author_id, value: current_user.id %>
+      <%= f.hidden_field :attachable_id, value: 0 %>
+      <%= f.hidden_field :attachable_type, value: 'File' %>
+      <div class="form-group">
+        <%= f.submit 'Upload file', class: 'btn btn-primary' %>
+      <div>
+    <% end %>
+  </div>
+</div>

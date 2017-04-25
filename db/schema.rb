@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170411135653) do
+ActiveRecord::Schema.define(version: 20170419132310) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,20 @@ ActiveRecord::Schema.define(version: 20170411135653) do
   end
 
   add_index "articles", ["author_id"], name: "index_articles_on_author_id", using: :btree
+
+  create_table "attachments", force: :cascade do |t|
+    t.integer  "attachable_id"
+    t.string   "attachable_type"
+    t.integer  "author_id"
+    t.integer  "article_id"
+    t.string   "asset_file_name"
+    t.string   "asset_content_type"
+    t.integer  "asset_file_size"
+    t.datetime "asset_updated_at"
+  end
+
+  add_index "attachments", ["article_id"], name: "index_attachments_on_article_id", using: :btree
+  add_index "attachments", ["attachable_type", "attachable_id"], name: "index_attachments_on_attachable_type_and_attachable_id", using: :btree
 
   create_table "comments", force: :cascade do |t|
     t.text     "content"

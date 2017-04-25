@@ -10,3 +10,12 @@ User.all.each do |user|
     Article.create(title: Faker::Lorem.sentence, author_id: user.id, content: Faker::Lorem.paragraph)
   end
 end
+
+articles = Article.all
+User.all.each do |user|
+  articles.each do |article|
+    5.times do |comment|
+      article.comments.create(author_id: user.id, content: Faker::Lorem.sentence(3))
+    end
+  end
+end

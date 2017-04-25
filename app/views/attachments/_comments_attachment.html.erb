@@ -1,0 +1,23 @@
+<div id="comments_attachment">
+  <div class="window_title">
+    <div class="title_control">X</div>
+    <div class="title_text">Attach comments from here.</div>
+  </div>
+  <div class="window-body">
+    <div>List of comments you can attach to this article.</div>
+    <table class="table attachable-comments">
+      <thead>
+        <tr>
+          <th>Coment</th>
+          <th>Author</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render partial: 'shared/attachable_item', collection: @attachable_comments, as: :item %>
+      </tbody>
+    </table>
+    <div id="attachable-comments-pagination">
+      <%= will_paginate @attachable_comments, param_name: 'page_attach_comm' %>
+    </div>
+  </div>
+</div>

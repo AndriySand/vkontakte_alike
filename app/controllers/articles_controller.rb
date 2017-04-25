@@ -11,11 +11,28 @@ class ArticlesController < ApplicationController
   # GET /articles/1
   # GET /articles/1.json
   def show
+    @attachable_comments = Comment.order(created_at: :desc).where("article_id <> #{@article.id}").paginate(page: params[:page_attach_comm], per_page: 5)
+    if params[:page_attach_comm]
+      render partial: 'shared/append_items', locals:
+        { appendable_body: '.attachable-comments tbody', partial: 'shared/attachable_item', collection: @attachable_comments,
+          item: :item, scrollable_div: '#attachable-comments-pagination .pagination', param_name: 'page_attach_comm' } and return
+    end
+    @attachable_articles = Article.order(created_at: :desc).paginate(page: params[:page_attach_art], per_page: 5)
+    if params[:page_attach_art]
+      render partial: 'shared/append_items', locals:
+        { appendable_body: '.attachable-articles tbody', partial: 'shared/attachable_item', collection: @attachable_articles,
+          item: :item, scrollable_div: '#attachable-articles-pagination .pagination', param_name: 'page_attach_art' } and return
+    end
     @article_comments = @article.comments.order(created_at: :desc).paginate(page: params[:page], per_page: 5)
-    @comment = current_user.comments.new
+    @comment = current_user.comments.new if current_user
+    @attachment = Attachment.new
+    @attachments = Attachment.paginate(page: params[:page_attachment], per_page: 5)
     respond_to do |format|
       format.html
-      format.js
+      format.js { render partial: 'shared/append_items', locals:
+        { appendable_body: '.table-comments tbody', partial: 'articles/comment', collection: @article_comments,
+          item: :comment, scrollable_div: '#infinite-scrolling .pagination', param_name: 'page' }
+      }
     end
   end
 
