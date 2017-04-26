@@ -1,0 +1,16 @@
+<% @user ||= current_user %>
+<div class="stats col-lg-6 col-md-6">
+  <div class="stat-links col-lg-12 col-md-12">
+    <%= styled_link following_user_path(@user), @user.followed_users.count, "following" %>
+    <%= styled_link followers_user_path(@user), @user.followers.count, "followers" %>
+  </div>
+  <% unless current_user == @user %>
+    <div id="follow_form">
+      <% if current_user.following?(@user) %>
+        <%= render 'shared/unfollow_button' %>
+      <% else %>
+        <%= render 'shared/follow_button' %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

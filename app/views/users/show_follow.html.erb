@@ -1,0 +1,32 @@
+<% provide(:title, @title) %>
+<div class="col-lg-5">
+  <h1><%= @user.name %></h1>
+  <div class="col-lg-12">
+    <%= link_to "View my profile", @user %>
+    <b>Articles:</b> <%= @user.articles.count %>
+  </div>
+  <%= render 'shared/follower_links' %>
+</div>
+<div class="col-lg-7">
+  <h3><%= @title %></h3>
+  <% if @users_articles_comments.any? %>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <td><h3>Name</h3></td>
+          <td><h3>Last article</h3></td>
+          <td>Last comment for this article</td>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users_articles_comments.each do |user, article, comment| %>
+          <tr>
+            <td><%= user.name %></td>
+            <td><%= article.content if article %></td>
+            <td><%= comment.content if comment %></td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+  <% end %>
+</div>

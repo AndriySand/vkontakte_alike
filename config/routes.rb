@@ -4,5 +4,11 @@ Rails.application.routes.draw do
     resource :attachments, only: :create
   end
   devise_for :users
+  resources :users, only: [:index, :show] do
+    member do
+      get :following, :followers
+    end
+  end
+  resources :relationships, only: [:create, :destroy]
   root to: 'articles#index'
 end
