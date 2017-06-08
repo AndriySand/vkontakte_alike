@@ -5,5 +5,5 @@ class Article < ActiveRecord::Base
   has_attached_file :photo, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: ":style/missing.jpg"
   validates_attachment_content_type :photo, content_type: /\Aimage\/.*\z/
   has_many :comments, dependent: :destroy
-  has_many :attachments, dependent: :destroy
+  has_many :attachments, dependent: :destroy, as: :attachable
 end
